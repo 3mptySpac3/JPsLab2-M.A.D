@@ -1,41 +1,25 @@
-
 import React from 'react';
-import { ScrollView, Pressable, View, Text, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
+import TodoItemList from './TodoItemList';
 
-const ToDoList = () => {
-    return (
-        <ScrollView>
-            <Pressable>
-                <View style={[styles.task, styles.completed]}>
-                    <Text style={styles.taskText}>Do laundry</Text>
-                </View>
-            </Pressable>
-            <Pressable>
-                <View style={[styles.task]}>
-                    <Text style={styles.taskText}>Go to gym</Text>
-                </View>
-            </Pressable>
-            <Pressable>
-                <View style={[styles.task, styles.completed]}>
-                    <Text style={styles.taskText}>Walk dog</Text>
-                </View>
-            </Pressable>
-        </ScrollView>
-    );
-}
+const ToDoList = ({ tasks, clickHandler }) => {
+  return (
+    <View style={styles.list}>
+      <FlatList
+        data={tasks}
+        renderItem={({ item }) => (
+          <TodoItemList item={item} clickHandler={clickHandler} />
+        )}
+        keyExtractor={(item) => item.key.toString()}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    task: {
-        padding: 10,
-        borderBottomWidth: 1,
-        borderColor: '#ccc',
-    },
-    completed: {
-        backgroundColor: '#e0e0e0',
-    },
-    taskText: {
-        fontSize: 16,
-    },
+  list: {
+    marginTop: 20,
+  },
 });
 
 export default ToDoList;
